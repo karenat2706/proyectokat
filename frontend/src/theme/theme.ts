@@ -23,14 +23,10 @@ export const themeOptions: ThemeOptions = {
       main: '#ff0000',
     },
     success: {
-      main: '#82e8b6',
+      main: '#2e7d32',
     },
   },
 };
 
-
-//Crea el tema a partir de las opciones
 const theme = createTheme(themeOptions);
-
-// Exporta el tema como valor por defecto
 export default theme;
