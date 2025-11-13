@@ -29,8 +29,8 @@ export const themeOptions: ThemeOptions = {
 };
 
 
-// ✅ Crea el tema a partir de las opciones
+//Crea el tema a partir de las opciones
 const theme = createTheme(themeOptions);
 
-// ✅ Exporta el tema como valor por defecto
+// Exporta el tema como valor por defecto
 export default theme;

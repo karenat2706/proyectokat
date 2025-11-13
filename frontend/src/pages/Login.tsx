@@ -1,20 +1,45 @@
-import { Container, Typography, Button } from "@mui/material";
+import { Container, Typography, Button, Stack } from "@mui/material";
 
 export default function Login() {
   return (
-    <Container>
-      <Typography variant="h1" color="primary">Título principal</Typography>
-      <Typography variant="h2" color="secondary">Subtítulo</Typography>
-      <Typography variant="h3" color="error">Texto destacado</Typography>
-      <Typography variant="body1">Texto normal</Typography>
-      <Typography variant="caption" color="text.secondary">
-        Pie de página
-      </Typography>
+      <main>
+        <Container
+            sx={{
+              textAlign: "center",
+              mt: 10,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 2,
+            }}
+        >
+          <Typography variant="h1" color="primary" gutterBottom>
+            Página de Login - Karen Acosta Tse
+          </Typography>
 
-      <Button variant="text" color="primary">Text Button</Button>
-      <Button variant="contained" color="secondary">Contained</Button>
-      <Button variant="outlined" color="success">Outlined</Button>
-      <Button variant="contained" color="error">Error</Button>
-    </Container>
+          <Typography variant="h2" color="secondary" gutterBottom>
+            Bienvenida a tu aplicación React con MUI
+          </Typography>
+
+          <Typography variant="h3" color="error" gutterBottom>
+            Accede al sistema para continuar
+          </Typography>
+
+          <Typography variant="body1">
+            Este es el inicio de sesión del sistema desarrollado con React, Vite y TypeScript.
+          </Typography>
+
+          <Typography variant="caption" color="text.secondary" sx={{ mt: 2 }}>
+            Proyecto realizado por Karen Acosta Tse
+          </Typography>
+
+          <Stack direction="row" spacing={2} sx={{ mt: 4 }}>
+            <Button variant="text" color="primary">Entrar</Button>
+            <Button variant="contained" color="secondary">Registrar</Button>
+            <Button variant="outlined" color="success">Más información</Button>
+            <Button variant="contained" color="error">Cancelar</Button>
+          </Stack>
+        </Container>
+      </main>
   );
 }
