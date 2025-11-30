@@ -10,29 +10,42 @@ export default function Login() {
 
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
+    const [loading] = useState(false);
 
-    const handleLogin = () => {
-        if (user === 'admin' && password === '1234') {
-            dispatch(authActions.login({
-                name: user,
-                rol: 'admin'
-            }));
-            alert('Login correcto');
-            navigate('/home');
-        } else if (user === 'karen' && password === '1234') {
-            dispatch(authActions.login({
-                name: user,
-                rol: 'karen'
-            }));
-            alert('Login correcto');
-            navigate('/home');
-        } else {
-            alert('Usuario y/o contraseña incorrectos');
+    const handleLogin = async () => {
+        if (!user || !password) {
+            alert('Por favor, completa usuario y contraseña');
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:3030/login?user=${user}&password=${password}`);
+            const result = await response.json();
+
+            console.log('Respuesta del backend:', result);
+
+            if (result.data && result.data.length > 0) {
+                const userData = result.data[0];
+
+                dispatch(authActions.login({
+                    userName: userData.nombre,
+                    userRol: userData.rol,
+                    isAuthenticated: true
+                }));
+
+                alert('Login correcto');
+                navigate('/home');
+            } else {
+                alert('Usuario y/o contraseña incorrectos');
+            }
+        } catch (error) {
+            console.error('Error en login:', error);
+            alert('Error de conexión con el servidor');
         }
     };
 
     const handleInfo = () => {
-        alert('Credenciales de prueba:\n• admin / 1234 (rol: admin)\n• karen / 1234 (rol: karen)');
+        alert('Usuarios en la base de datos:\n--> admin / admin123\n --> user / user123\n --> invitado / invitado123\n --> karen / 1234');
     };
 
     const handleCancel = () => {
@@ -66,7 +79,6 @@ export default function Login() {
                         value={user}
                         onChange={(e) => setUser(e.target.value)}
                         fullWidth
-                        placeholder="admin o karen"
                     />
                     <TextField
                         label="Contraseña"
@@ -74,13 +86,18 @@ export default function Login() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         fullWidth
-                        placeholder="1234"
                     />
                 </Stack>
 
                 <Stack direction="row" spacing={2}>
-                    <Button variant="contained" color="primary" onClick={handleLogin}>
-                        Entrar
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleLogin}
+                        disabled={loading}
+                    >
+                        {loading && 'Conectando...'}
+                        {!loading && 'Entrar'}
                     </Button>
                     <Button variant="outlined" color="secondary">
                         Registrarse
