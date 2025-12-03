@@ -13,7 +13,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+//import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import AdbIcon from '@mui/icons-material/Adb';
 import {Drawer, List, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
@@ -66,8 +66,8 @@ function Menu() {
                     </ListItemButton>
                 </Link>
 
-                {/*Solo el usuario admin puede ver la seccion reports*/}
-
+                {/* solo el adin ve informes */}
+                {(userData.userRol === "admin"  || userData.userName === "karen") && (
                     <Link to={'/reports'}>
                         <ListItemButton>
                             <ListItemIcon sx={{color: 'secondary.main'}}>
@@ -76,18 +76,8 @@ function Menu() {
                             <ListItemText sx={{color: 'primary.main'}}>Informes</ListItemText>
                         </ListItemButton>
                     </Link>
+                )}
 
-                {/*Solo el usuario admin puede gestionar usuarios*/}
-                {userData.userRol == "admin" &&
-                    <Link to={'/gestionusuarios'}>
-                        <ListItemButton>
-                            <ListItemIcon sx={{color: 'secondary.main'}}>
-                                <ManageAccountsIcon/>
-                            </ListItemIcon>
-                            <ListItemText sx={{color: 'primary.main'}}>Gestionar Usuarios</ListItemText>
-                        </ListItemButton>
-                    </Link>
-                }
                 <Link to={'/help'}>
                     <ListItemButton>
                         <ListItemIcon sx={{color: 'secondary.main'}}>

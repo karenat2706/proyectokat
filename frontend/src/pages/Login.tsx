@@ -30,7 +30,7 @@ export default function Login() {
                 dispatch(authActions.login({
                     userName: userData.nombre,
                     userRol: userData.rol,
-                    isAuthenticated: true
+                    isAutenticated: true
                 }));
 
                 alert('Login correcto');

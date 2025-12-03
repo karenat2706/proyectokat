@@ -19,8 +19,8 @@ const authSlice = createSlice({
         login: (state, action) => {
             const userData = action.payload
             state.isAutenticated = true
-            state.userName = userData.name
-            state.userRol = userData.rol
+            state.userName = userData.userName
+            state.userRol = userData.userRol
         },
         logout: (state) => {
             state.isAutenticated = false

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {Box, Button, Container, TextField, Divider, Table, TableContainer, TableHead, TableRow, TableCell, TableBody} from "@mui/material";
+import {Box, Button, Container, TextField, Divider, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Typography} from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -115,7 +115,7 @@ export default function Dashboard() {
             if (result.success && result.affectedRows > 0) {
                 getItems();
                 alert('Datos guardados con éxito');
-                handleClear();
+                handleClear(); //con esto limpiamos los textfield
             } else {
                 alert('No se han insertado los datos');
             }
@@ -217,10 +217,20 @@ export default function Dashboard() {
                         {tableData.map((row: ItemType) => (
                             <TableRow key={row.id}>
                                 <TableCell>
-                                    {/* QUITA la condición del rol - deja solo el botón */}
-                                    <Button onClick={() => handleDeleteItem(row)}>
-                                        <DeleteForeverIcon sx={{ color: 'secondary.main' }} />
-                                    </Button>
+                                    {/* solo admin puede ver el boton de eliminar*/}
+                                    {userData.userRol === "admin" && (
+                                        <Button onClick={() => handleDeleteItem(row)}>
+                                            <DeleteForeverIcon sx={{ color: 'secondary.main' }} />
+                                        </Button>
+                                    )}
+
+                                    {/* Si es user, mostrar mensaje o dejar vacío */}
+                                    {userData.userRol !== "admin" && (
+                                        <Typography variant="caption" color="text.secondary">
+                                            No permitido
+                                        </Typography>
+                                    )}
+
                                 </TableCell>
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.marca}</TableCell>

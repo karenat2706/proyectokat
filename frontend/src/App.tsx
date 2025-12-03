@@ -11,6 +11,14 @@ function ProtectedRoute({ children }: { children: any }) {
     return isAuth ? children : <Navigate to="/" replace />;
 }
 
+function AdminRoute({ children }: { children: any }) {
+    const userData = useSelector((state: RootState) => state.authenticator);
+    const isAuth = userData.isAutenticated;
+    const isAdmin = userData.userRol === "admin";
+    
+    return isAuth && isAdmin ? children : <Navigate to="/home" replace />;
+}
+
 function App() {
     return (
         <Router>
@@ -27,9 +35,9 @@ function App() {
                 <Route
                     path="/reports"
                     element={
-                        <ProtectedRoute>
+                        <AdminRoute> 
                             <Reports />
-                        </ProtectedRoute>
+                        </AdminRoute>
                     }
                 />
             </Routes>

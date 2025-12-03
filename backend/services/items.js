@@ -32,6 +32,18 @@ async function deleteData(req, res) {
     return 1; // Simulamos affectedRows
 }
 
+app.get('/getItems', async (req, res) => {
+    try {
+        console.log('📊 Petición getItems recibida');
+        const rows = await db.query(`SELECT * FROM coleccion`);
+        console.log(`📊 ${rows.length} registros encontrados`);
+        res.json({ data: rows });
+    } catch (error) {
+        console.error('❌ Error en getItems:', error);
+        res.status(500).json({ error: 'Error del servidor' });
+    }
+});
+
 export default {
     getData,
     insertData,
